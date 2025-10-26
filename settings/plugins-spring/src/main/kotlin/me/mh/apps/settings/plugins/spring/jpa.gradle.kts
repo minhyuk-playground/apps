@@ -14,5 +14,6 @@ allOpen {
 }
 
 dependencies {
+    api("org.springframework:spring-tx")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 }

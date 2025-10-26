@@ -1,4 +1,4 @@
-rootProject.name = "infra-spring"
+rootProject.name = "support-spring"
 
 includeBuild("../plugins-spring")
 

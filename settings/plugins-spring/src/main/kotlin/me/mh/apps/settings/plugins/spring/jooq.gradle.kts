@@ -6,6 +6,8 @@ plugins {
 }
 
 dependencies {
+    api("org.springframework:spring-tx")
+
     val jooqVersion = dependencyManagement.importedProperties["jooq.version"]
     implementation("org.jooq:jooq-kotlin:$jooqVersion")
 }

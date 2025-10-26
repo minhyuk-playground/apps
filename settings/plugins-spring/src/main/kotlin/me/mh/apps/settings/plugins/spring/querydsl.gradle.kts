@@ -1,5 +1,4 @@
-import gradle.kotlin.dsl.accessors._938f221190fafc3c2a2646bedc3a3cf2.dependencyManagement
-import gradle.kotlin.dsl.accessors._938f221190fafc3c2a2646bedc3a3cf2.implementation
+package me.mh.apps.settings.plugins.spring
 
 plugins {
     id("me.mh.apps.settings.plugins.spring.boot")

@@ -4,5 +4,8 @@ spring-boot = { id = "me.mh.apps.settings.plugins.spring.boot" }
 spring-web = { id = "me.mh.apps.settings.plugins.spring.web" }
 spring-batch = { id = "me.mh.apps.settings.plugins.spring.batch" }
 spring-jpa = { id = "me.mh.apps.settings.plugins.spring.jpa" }
-querydsl = { id = "me.mh.apps.settings.plugins.querydsl" }
+querydsl = { id = "me.mh.apps.settings.plugins.spring.querydsl" }
 jooq = { id = "me.mh.apps.settings.plugins.spring.jooq" }
+
+[libraries]
+spring-jpa = { group = "me.mh.apps.settings.support-spring.persistence", name = "jpa" }

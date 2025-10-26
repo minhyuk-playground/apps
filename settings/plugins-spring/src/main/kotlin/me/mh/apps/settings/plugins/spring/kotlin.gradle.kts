@@ -1,8 +1,12 @@
 package me.mh.apps.settings.plugins.spring
 
+import gradle.kotlin.dsl.accessors._160bcc4ee9483fe4d5a2d8de58fe9f02.testImplementation
+import gradle.kotlin.dsl.accessors._160bcc4ee9483fe4d5a2d8de58fe9f02.testRuntimeOnly
+
 
 plugins {
     kotlin("jvm")
+    id("org.springframework.boot")
     id("io.spring.dependency-management")
 }
 
@@ -11,8 +15,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 java {
@@ -29,6 +33,15 @@ kotlin {
 }
 
 tasks {
-    test { useJUnitPlatform() }
-    jar { enabled = true }
+    test {
+        useJUnitPlatform()
+    }
+
+    jar {
+        enabled = true
+    }
+
+    bootJar {
+        enabled = false
+    }
 }
