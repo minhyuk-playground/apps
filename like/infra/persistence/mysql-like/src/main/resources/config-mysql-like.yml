@@ -1,0 +1,98 @@
+like:
+  jpa:
+    database: mysql
+    database-dialect: org.hibernate.dialect.MySQLDialect
+    timezone-default-storage: NORMALIZE
+    ddl-auto: VALIDATE
+    jdbc-batch-size: 100
+    default-batch-fetch-size: 100
+    is-show-sql: true
+
+  data-sources:
+    replication:
+      hikari:
+        primary:
+          jdbc-url: jdbc:mysql://127.0.0.1:3306/like
+          username: test
+          password: test
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          pool-name: like-primary
+          maximum-pool-size: 10
+          read-only: false
+          data-source-properties:
+            userSSL: false
+            connectionTimeZone: UTC
+            characterEncoding: utf8
+            useUnicode: true
+            zeroDateTimeBehavior: CONVERT_TO_NULL
+            socketTimeout: 5000
+            connectTimeout: 5000
+            rewriteBatchedStatements: true
+
+        secondaries:
+          - jdbc-url: jdbc:mysql://127.0.0.1:3307/like
+            username: ${like.data-sources.replication.hikari.primary.data-source-properties.username}
+            password: ${like.data-sources.replication.hikari.primary.data-source-properties.password}
+            driver-class-name: ${like.data-sources.replication.hikari.primary.data-source-properties.driver-class-name}
+            pool-name: like-secondary-1
+            maximum-pool-size: 30
+            read-only: true
+            data-source-properties:
+              userSSL: ${like.data-sources.replication.hikari.primary.data-source-properties.userSSL}
+              connectionTimeZone: ${like.data-sources.replication.hikari.primary.data-source-properties.connectionTimeZone}
+              characterEncoding: ${like.data-sources.replication.hikari.primary.data-source-properties.characterEncoding}
+              useUnicode: ${like.data-sources.replication.hikari.primary.data-source-properties.useUnicode}
+              zeroDateTimeBehavior: ${like.data-sources.replication.hikari.primary.data-source-properties.zeroDateTimeBehavior}
+              socketTimeout: ${like.data-sources.replication.hikari.primary.data-source-properties.socketTimeout}
+              connectTimeout: ${like.data-sources.replication.hikari.primary.data-source-properties.connectionTimeZone}
+              rewriteBatchedStatements: false
+
+          - jdbc-url: jdbc:mysql://127.0.0.1:3308/like
+            username: ${like.data-sources.replication.hikari.primary.data-source-properties.username}
+            password: ${like.data-sources.replication.hikari.primary.data-source-properties.password}
+            driver-class-name: ${like.data-sources.replication.hikari.primary.data-source-properties.driver-class-name}
+            pool-name: like-secondary-2
+            maximum-pool-size: 30
+            read-only: true
+            data-source-properties:
+              userSSL: ${like.data-sources.replication.hikari.primary.data-source-properties.userSSL}
+              connectionTimeZone: ${like.data-sources.replication.hikari.primary.data-source-properties.connectionTimeZone}
+              characterEncoding: ${like.data-sources.replication.hikari.primary.data-source-properties.characterEncoding}
+              useUnicode: ${like.data-sources.replication.hikari.primary.data-source-properties.useUnicode}
+              zeroDateTimeBehavior: ${like.data-sources.replication.hikari.primary.data-source-properties.zeroDateTimeBehavior}
+              socketTimeout: ${like.data-sources.replication.hikari.primary.data-source-properties.socketTimeout}
+              connectTimeout: ${like.data-sources.replication.hikari.primary.data-source-properties.connectionTimeZone}
+              rewriteBatchedStatements: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+like:
+  jpa:
+    database: h2
+    database-dialect: org.hibernate.dialect.H2Dialect
+    timezone-default-storage: normalize
+    ddl-auto: create
+    is-show-sql: true
+
+  data-sources:
+    replication:
+      hikari:
+        primary:
+          jdbc-url: jdbc:mem:h2:testdb
+          username: sa
+          password: ""
+          driver-class-name: org.h2
+          pool-name: like-test-primary
+          maximum-pool-size: 10
+
+        secondaries:
+          - jdbc-url: jdbc:mem:h2:testdb
+            username: ${like.data-sources.replication.hikari.primary.data-source-properties.username}
+            password: ${like.data-sources.replication.hikari.primary.data-source-properties.password}
+            driver-class-name: ${like.data-sources.replication.hikari.primary.data-source-properties.driver-class-name}
+            pool-name: like-test-secondary-1
+            maximum-pool-size: 10

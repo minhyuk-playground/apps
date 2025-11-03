@@ -15,6 +15,7 @@ repositories {
 }
 
 dependencies {
+    // TODO("Junit5 의존성으로 수정")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
