@@ -13,6 +13,7 @@ val kotlinVersion = springLibs.versions.kotlin.get()
 val springBootVersion = springLibs.versions.springBoot.get()
 val springDependencyManagementVersion = springLibs.versions.springDependencyManagement.get()
 val jooqVersion = springLibs.versions.jooq.get()
+val googleDevToolsKsp = springLibs.versions.google.devTools.ksp.get()
 
 dependencies {
     // jetbrains
@@ -28,10 +29,16 @@ dependencies {
     // jooq
     implementation("org.jooq:jooq-meta-kotlin:$jooqVersion")
     implementation("org.jooq.jooq-codegen-gradle:org.jooq.jooq-codegen-gradle.gradle.plugin:$jooqVersion")
+
+    // ksp
+    runtimeOnly("com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:$googleDevToolsKsp")
+
+    // libs
+    implementation(files(springLibs.javaClass.superclass.protectionDomain.codeSource.location))
 }
 
 tasks {
     wrapper {
-        jarFile = file("../../gradle/wrapper/gradle-wrapper.jar")
+        enabled = false
     }
 }

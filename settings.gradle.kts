@@ -2,13 +2,16 @@ rootProject.name = "apps"
 
 dependencyResolutionManagement {
     versionCatalogs {
-        create("springConventionLibs") {
-            from(files("./settings/versions/spring/convention.versions.toml"))
+        create("springLibs") {
+            from(files("./settings/versions/spring/libs.versions.toml"))
         }
     }
 }
 
-includeBuild("./settings/plugins-spring")
+pluginManagement {
+    includeBuild("./settings/plugins-spring")
+}
+
 includeBuild("./settings/support-spring")
 
 include(

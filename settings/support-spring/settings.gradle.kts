@@ -1,15 +1,17 @@
 rootProject.name = "support-spring"
 
-includeBuild("../plugins-spring")
 
 dependencyResolutionManagement {
     versionCatalogs {
-        create("springConventionLibs") {
-            from(files("../versions/spring/convention.versions.toml"))
+        create("springLibs") {
+            from(files("../versions/spring/libs.versions.toml"))
         }
     }
 }
 
+pluginManagement {
+    includeBuild("../plugins-spring")
+}
 
 include(
     ":persistence:datasource",

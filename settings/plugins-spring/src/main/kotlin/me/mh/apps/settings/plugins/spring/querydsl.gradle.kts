@@ -1,11 +1,22 @@
 package me.mh.apps.settings.plugins.spring
 
+import org.gradle.accessors.dm.LibrariesForSpringLibs
+import org.gradle.kotlin.dsl.the
+
 plugins {
-    id("me.mh.apps.settings.plugins.spring.boot")
+    kotlin("jvm")
+    id("com.google.devtools.ksp")
 }
 
+repositories {
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+val springLibs = the<LibrariesForSpringLibs>()
+
 dependencies {
-    val querydslVersion = dependencyManagement.importedProperties["querydsl.version"]
-    implementation("com.querydsl:querydsl-apt:$querydslVersion:jakarta")
-    implementation("com.querydsl:querydsl-jpa:$querydslVersion:jakarta")
+    val queryDslVersion = springLibs.versions.openfeign.querydsl.get()
+    implementation("io.github.openfeign.querydsl:querydsl-jpa:$queryDslVersion")
+    ksp("io.github.openfeign.querydsl:querydsl-ksp-codegen:$queryDslVersion")
 }
